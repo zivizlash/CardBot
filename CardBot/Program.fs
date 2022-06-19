@@ -1,24 +1,12 @@
 open System.IO
 open Funogram.Api
-open Funogram.Types
 open Funogram.Telegram.Types
 open Funogram.Telegram.Bot
 open Funogram.Telegram.Api
 open FSharp.Json
 open CardBot.Types
-open CardBot.Domain
-open CardBot.Handlers
 open CardBot.AdapterTypes
-
-let config = { 
-    defaultConfig with Token = "543452756:AAE8fno1i8xFMc-eCKSLunnJe1CEef9XzK8" 
-}
-
-type StickerCard = {
-    Card: CardBot.Types.Card
-    StickerUniqueFileId: string
-    StickerFileId: string
-}
+open CardBot.Config
 
 let format card = sprintf "suit: %A; rank: %A" card.Suit card.Rank
 
@@ -41,7 +29,7 @@ let findFileIdByCard (card: CardBot.Types.Card) =
 
 let getSticker msg = msg.Sticker
 let getUniqueFileId sticker = sticker.FileUniqueId
-let getCardByStickerCard stickerCard = stickerCard.Card
+let getCardByStickerCard (stickerCard: StickerCard) = stickerCard.Card
 
 let getCardBySticker = 
     getUniqueFileId >> findCardById >> Option.map getCardByStickerCard
@@ -102,7 +90,6 @@ let sessions = CardBot.Adapter.TelegramSessions(config, telegramSettings)
 
 let onUpdate (ctx: UpdateContext) =
     sessions.HandleMessage ctx
-    // memorizeCards ctx
     
 [<EntryPoint>]
 let main argv =

@@ -6,6 +6,12 @@ open Funogram.Telegram.Types
 open Funogram.Telegram
 open CardBot.Utils
 
+type StickerCard = {
+    Card: CardBot.Types.Card
+    StickerUniqueFileId: string
+    StickerFileId: string
+}
+
 type TelegramPlayer = {
     Name: string 
     TelegramId: int64

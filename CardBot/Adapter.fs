@@ -73,7 +73,7 @@ let executeCommand (binder: ITelegramSessionBinder) (session: Types.Session) (co
                 | Some playerTurn, Some playerTo -> 
                     sprintf "Игра началась. Козырь: %A; Ходит: %s на %s" created.Trump playerTurn.Name playerTo.Name
                 | _ -> ""
-            | Types.End sessionEnd -> "Рыба акула игра утонула"
+            | Types.End sessionEnd -> "Конец игры"
             | Types.AttackerTurn attackerTurn -> "Атака"
             | Types.DefenderTurn defenderTurn -> "Защита"
             | Types.NotPlayerTurn notPlayerTurn -> "Сейчас не ваш ход"
